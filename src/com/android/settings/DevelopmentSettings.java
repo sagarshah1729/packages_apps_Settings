@@ -116,7 +116,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private static final String BUGREPORT = "bugreport";
     private static final String BUGREPORT_IN_POWER_KEY = "bugreport_in_power";
     private static final String OPENGL_TRACES_PROPERTY = "debug.egl.trace";
-    private static final String TUNER_UI_KEY = "tuner_ui";
     private static final String COLOR_TEMPERATURE_PROPERTY = "persist.sys.debug.color_temp";
 
     private static final String DEBUG_APP_KEY = "debug_app";
@@ -642,6 +641,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         updateMobileDataAlwaysOnOptions();
         updateSimulateColorSpace();
         updateUSBAudioOptions();
+
         if (mColorTemperaturePreference != null) {
             updateColorTemperature();
         }
