@@ -93,6 +93,9 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
 
     private static final String KEY_DEVICE_MAINTAINER = "device_maintainer";
 
+    private static final String PROPERTY_UBER_AND = "ro.uber.android";
+    private static final String PROPERTY_UBER_KERNEL = "ro.uber.kernel";
+    private static final String PROPERTY_UBER_FLAGS = "ro.uber.flags";
     private static final String KEY_UBER_AND = "uber_android";
     private static final String KEY_UBER_KERNEL = "uber_kernel";
     private static final String KEY_UBER_FLAGS = "uber_flags";
@@ -147,11 +150,10 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setStringSummary(KEY_BUILD_NUMBER, Build.DISPLAY);
         findPreference(KEY_BUILD_NUMBER).setEnabled(true);
         findPreference(KEY_KERNEL_VERSION).setSummary(getFormattedKernelVersion());
-        findPreference(KEY_UBER_KERNEL).setEnabled(true);
-        findPreference(KEY_UBER_FLAGS).setEnabled(true);
-        setValueSummary(KEY_UBER_AND, "ro.uber.android");
-        setValueSummary(KEY_UBER_KERNEL, "ro.uber.kernel");
-        setValueSummary(KEY_UBER_FLAGS, "ro.uber.flags");
+        setValueSummary(KEY_UBER_AND, PROPERTY_UBER_AND);
+        setValueSummary(KEY_UBER_KERNEL,  PROPERTY_UBER_KERNEL);
+        setValueSummary(KEY_UBER_FLAGS, PROPERTY_UBER_FLAGS);
+
         setMaintainerSummary(KEY_DEVICE_MAINTAINER, "ro.cardinal.maintainer");
 
         setValueSummary(KEY_CARDINAL_VERSION, "ro.cardinal.version");
@@ -172,6 +174,14 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         // Remove Safety information preference if PROPERTY_URL_SAFETYLEGAL is not set
         removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_SAFETY_LEGAL,
                 PROPERTY_URL_SAFETYLEGAL);
+
+        // Remove UBERTC information if property is not present
+        removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_UBER_AND,
+                PROPERTY_UBER_AND);
+        removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_UBER_KERNEL,
+                PROPERTY_UBER_KERNEL);
+        removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_UBER_FLAGS,
+                PROPERTY_UBER_FLAGS);
 
         // Remove Equipment id preference if FCC ID is not set by RIL
         removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_EQUIPMENT_ID,
