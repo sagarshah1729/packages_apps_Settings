@@ -43,6 +43,11 @@
 
     </PreferenceCategory>
 
+        <PreferenceScreen
+            android:key="carrierlabel"
+            android:fragment="com.android.settings.cardinal.fragments.CarrierLabel"
+            android:title="@string/carrier_options" />
+
     <PreferenceCategory
         android:key="clockdate"
         android:title="@string/clockdate_section_header" >
