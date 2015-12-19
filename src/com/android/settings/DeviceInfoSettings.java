@@ -87,7 +87,10 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String PROPERTY_EQUIPMENT_ID = "ro.ril.fccid";
     private static final String KEY_DEVICE_FEEDBACK = "device_feedback";
     private static final String KEY_SAFETY_LEGAL = "safetylegal";
+
     private static final String KEY_DEV_INFO = "dev_info";
+
+    private static final String KEY_DEVICE_MAINTAINER = "device_maintainer";
 
     private static final String KEY_UBER_AND = "uber_android";
     private static final String KEY_UBER_KERNEL = "uber_kernel";
@@ -146,6 +149,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setValueSummary(KEY_UBER_AND, "ro.uber.android");
         setValueSummary(KEY_UBER_KERNEL, "ro.uber.kernel");
         setValueSummary(KEY_UBER_FLAGS, "ro.uber.flags");
+        setMaintainerSummary(KEY_DEVICE_MAINTAINER, "ro.cardinal.maintainer");
 
         if (!SELinux.isSELinuxEnabled()) {
             String status = getResources().getString(R.string.selinux_status_disabled);
@@ -361,6 +365,20 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
             findPreference(preference).setSummary(
                     SystemProperties.get(property,
                             getResources().getString(R.string.device_info_default)));
+        } catch (RuntimeException e) {
+            // No recovery
+        }
+    }
+
+    private void setMaintainerSummary(String preference, String property) {
+        try {
+            String maintainers = SystemProperties.get(property,
+                    getResources().getString(R.string.device_info_default));
+            findPreference(preference).setSummary(maintainers);
+            if (maintainers.contains(",")) {
+                findPreference(preference).setTitle(
+                        getResources().getString(R.string.device_maintainers));
+            }
         } catch (RuntimeException e) {
             // No recovery
         }
