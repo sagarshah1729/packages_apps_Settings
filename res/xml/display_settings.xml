@@ -124,4 +124,9 @@
                     android:targetClass="com.slim.device.settings.ScreenOffGestureSettings" />
         </Preference>
 
+        <SwitchPreference
+                android:key="volume_rocker_wake"
+                android:summary="@string/volume_rocker_wake_summary"
+                android:title="@string/volume_rocker_wake_title" />
+
 </PreferenceScreen>
