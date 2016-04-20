@@ -40,6 +40,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.android.settings.slim.NavbarSettings;
+import android.widget.Toast;
+
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.util.slim.AppHelper;
 import com.android.internal.util.slim.ActionConstants;
@@ -47,14 +50,12 @@ import com.android.internal.util.slim.DeviceUtils;
 import com.android.internal.util.slim.DeviceUtils.FilteredDeviceFeaturesArray;
 import com.android.internal.util.slim.HwKeyHelper;
 
-import com.android.settings.cardinal.ButtonBacklightBrightness;
-
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.slim.util.FileUtil;
 import com.android.settings.slim.util.ShortcutPickerHelper;
 import com.android.settings.slim.util.StreamUtil;
- 
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -66,7 +67,9 @@ import java.io.InputStreamReader;
 import java.io.FileFilter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-  
+
+import com.android.settings.cardinal.ButtonBacklightBrightness;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -84,6 +87,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String CATEGORY_MENU = "button_keys_menu";
     private static final String CATEGORY_ASSIST = "button_keys_assist";
     private static final String CATEGORY_APPSWITCH = "button_keys_appSwitch";
+
+    private static final String KEYS_CATEGORY_HWKEYS = "keys_hwkeys";
+    private static final String KEYS_DISABLE_HWKEYS = "disable_hardware_keys";
 
     private static final String KEY_BUTTON_BACKLIGHT = "button_backlight";
     private static final String KEYS_CATEGORY_BINDINGS = "keys_bindings";
@@ -108,7 +114,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEYS_APP_SWITCH_DOUBLE_TAP = "keys_app_switch_double_tap";
 
     private static final String KEY_HARDWARE_KEYS_ENABLE = "enable_hardware_keys";
-//  private static final String KEY_HARDWARE_KEYS_LIGHTS_ENABLE = "enable_hardware_keys_lights";
+//    private static final String KEY_HARDWARE_KEYS_LIGHTS_ENABLE = "enable_hardware_keys_lights";
     private static final int DLG_SHOW_WARNING_DIALOG = 0;
     private static final int DLG_SHOW_ACTION_DIALOG  = 1;
     private static final int DLG_RESET_TO_DEFAULT    = 2;
@@ -124,8 +130,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final int KEY_MASK_APP_SWITCH = 0x10;
     private static final int KEY_MASK_CAMERA     = 0x20;
 
+    private SwitchPreference mDisableHwKeys;
     private SwitchPreference mEnableHardwareKeys;
-//  private SwitchPreference mEnableHardwareKeyLights;
+//    private SwitchPreference mEnableHardwareKeyLights;
     private SwitchPreference mEnableCustomBindings;
     private Preference mBackPressAction;
     private Preference mBackLongPressAction;
@@ -152,10 +159,12 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private ShortcutPickerHelper mPicker;
     private String mPendingSettingsKey;
     private static FilteredDeviceFeaturesArray sFinalActionDialogArray;
- 
+
     private String mKeyPath;
     private String mKeyLightsPath;
     private boolean mUpdateKeys;
+
+    Toast mHardwareKeysToast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -168,9 +177,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         Resources res = getResources();
         sFinalActionDialogArray = new FilteredDeviceFeaturesArray();
         sFinalActionDialogArray = DeviceUtils.filterUnsupportedDeviceFeatures(getActivity(),
-              res.getStringArray(res.getIdentifier(
+                res.getStringArray(res.getIdentifier(
                     "shortcut_action_hwkey_values", "array", "com.android.settings")),
-              res.getStringArray(res.getIdentifier(
+                res.getStringArray(res.getIdentifier(
                     "shortcut_action_hwkey_entries", "array", "com.android.settings")));
 
         // Attach final settings screen.
@@ -188,7 +197,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         }
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.hardwarekeys_settings.xml);
+        addPreferencesFromResource(R.xml.cardinal_wing_button);
         prefs = getPreferenceScreen();
 
         int deviceKeys = getResources().getInteger(
@@ -215,13 +224,18 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 (PreferenceCategory) prefs.findPreference(CATEGORY_ASSIST);
         PreferenceCategory keysAppSwitchCategory =
                 (PreferenceCategory) prefs.findPreference(CATEGORY_APPSWITCH);
-       mEnableHardwareKeys = (SwitchPreference) findPreference(
+
+        mDisableHwKeys = (SwitchPreference) prefs.findPreference(
+                KEYS_DISABLE_HWKEYS);
+
+        mEnableHardwareKeys = (SwitchPreference) findPreference(
                 KEY_HARDWARE_KEYS_ENABLE);
         ButtonBacklightBrightness backlight = (ButtonBacklightBrightness) prefs.findPreference(
                 KEY_BUTTON_BACKLIGHT);
 
 //        mEnableHardwareKeyLights = (SwitchPreference) findPreference(
 //                KEY_HARDWARE_KEYS_LIGHTS);
+
         mEnableCustomBindings = (SwitchPreference) prefs.findPreference(
                 KEYS_ENABLE_CUSTOM);
         mBackPressAction = (Preference) prefs.findPreference(
@@ -262,8 +276,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 KEYS_APP_SWITCH_DOUBLE_TAP);
 
         if (!backlight.isButtonSupported()) {
-           getPreferenceScreen().removePreference(backlight);
-        }
+            getPreferenceScreen().removePreference(backlight);
+       }
 
         if (hasBackKey) {
             // Back key
@@ -379,8 +393,16 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             prefs.removePreference(keysAppSwitchCategory);
         }
 
-         Resources res = getResources();
+        Resources res = getResources();
 
+        boolean disableHardwareKeys = Settings.System.getInt(getContentResolver(),
+                Settings.System.DISABLE_HARDWARE_KEYS, 0) == 1;
+        mDisableHwKeys = (SwitchPreference) findPreference(KEYS_DISABLE_HWKEYS);
+        mDisableHwKeys.setChecked(disableHardwareKeys);
+        mDisableHwKeys.setOnPreferenceChangeListener(this);
+
+
+	    /*
             boolean enableHardwareKeys = Settings.System.getInt(getContentResolver(),
                     Settings.System.HARDWARE_KEYS_ENABLED, 1) == 1;
             mEnableHardwareKeys = (SwitchPreference) findPreference(KEY_HARDWARE_KEYS_ENABLE);
@@ -421,7 +443,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     Log.i(TAG, "Value stored in mKeyPath is " +i);
                     mUpdateKeys = true;
                 } else if (!enableHardwareKeys && i > 0) {
-                   Log.i(TAG, "Trying to write 0 to mKeyPath");
+                    Log.i(TAG, "Trying to write 0 to mKeyPath");
                     FileUtil.writeValue(mKeyPath, "0");
                     Log.i(TAG, "Value stored in mKeyPath is " +i);
                     mUpdateKeys = true;
@@ -429,6 +451,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             } else {
                 Log.i(TAG, "mKeyPath hardware keys overlay value is null or inavalid");
             }
+		*/
 
 //            boolean enableHardwareKeyLights = Settings.System.getInt(getContentResolver(),
 //                    Settings.System.HARDWARE_KEY_LIGHTS_ENABLED, 0) == 1;
@@ -446,7 +469,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 //            }
             
         boolean enableHardwareRebind = Settings.System.getInt(getContentResolver(),
-                Settings.System.HARDWARE_KEY_REBINDING, 0) == 1;
+                    Settings.System.HARDWARE_KEY_REBINDING, 0) == 1;
         mEnableCustomBindings = (SwitchPreference) findPreference(KEYS_ENABLE_CUSTOM);
         mEnableCustomBindings.setChecked(enableHardwareRebind);
         mEnableCustomBindings.setOnPreferenceChangeListener(this);
@@ -466,12 +489,12 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             prefs.removePreference(mEnableHardwareKeys);
             prefs.removePreference(mEnableCustomBindings);
         }
-
         mCheckPreferences = true;
         return prefs;
     }
+    
 
-       public void hideHwKeys() {
+    public void hideHwKeys() {
 
         int deviceKeys = getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
@@ -588,12 +611,38 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (!mCheckPreferences) {
             return false;
+        } else if (preference == mDisableHwKeys) {
+            boolean value = (Boolean) newValue;
+	    // Prema Chand Alugu (premaca@gmail.com)
+	    // We need to make sure the Navigation Bar presence if we are
+	    // disabling Hardware Keys. At least one of them should be present
+	    // for the device operation.
+            boolean navigationBarVisible = Settings.System.getInt(getContentResolver(), 
+	    Settings.System.NAVIGATION_BAR_SHOW, 0) == 1;
+
+	    if ((!navigationBarVisible) && (value)) {
+		    // check only while disabling the Hardware Keys 
+                    if (mHardwareKeysToast != null) {
+                        mHardwareKeysToast.cancel();
+                    }
+		    mHardwareKeysToast = Toast.makeText(getActivity(), 
+				    "Make sure Navigation Bar is present",
+				    Toast.LENGTH_LONG);
+		    mHardwareKeysToast.show();
+	    	return false;
+	    }
+
+            Settings.System.putInt(getContentResolver(), Settings.System.DISABLE_HARDWARE_KEYS,
+                    value ? 1 : 0);
+            return true;
+	/*
         } else if (preference == mEnableHardwareKeys) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getContentResolver(), Settings.System.HARDWARE_KEYS_ENABLED,
                     value ? 1 : 0);
             reloadSettings();
             return true;
+	*/
         } else if (preference == mEnableCustomBindings) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getContentResolver(), Settings.System.HARDWARE_KEY_REBINDING,
@@ -622,7 +671,11 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             }
         }
         Settings.System.putInt(getContentResolver(),
-            +                Settings.System.HARDWARE_KEYS_ENABLED, 1);
+                Settings.System.DISABLE_HARDWARE_KEYS, 1);
+	/*
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.HARDWARE_KEYS_ENABLED, 1);
+	*/
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HARDWARE_KEY_LIGHTS_ENABLED, 1);
         Settings.System.putInt(getContentResolver(),
@@ -633,6 +686,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        mHardwareKeysToast = null;
     }
 
     @Override
@@ -651,8 +705,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             if (requestCode == ShortcutPickerHelper.REQUEST_PICK_SHORTCUT
                     || requestCode == ShortcutPickerHelper.REQUEST_PICK_APPLICATION
                     || requestCode == ShortcutPickerHelper.REQUEST_CREATE_SHORTCUT) {
-               mPicker.onActivityResult(requestCode, resultCode, data);
-
+                        mPicker.onActivityResult(requestCode, resultCode, data);
             }
         } else {
             mPendingSettingsKey = null;
@@ -687,18 +740,18 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     public static class MyAlertDialogFragment extends DialogFragment {
 
         public static MyAlertDialogFragment newInstance(
-                int id, String settingsKey, int dialogTitle) {
-            MyAlertDialogFragment frag = new MyAlertDialogFragment();
-            Bundle args = new Bundle();
-            args.putInt("id", id);
-            args.putString("settingsKey", settingsKey);
-            args.putInt("dialogTitle", dialogTitle);
-            frag.setArguments(args);
-            return frag;
+            int id, String settingsKey, int dialogTitle) {
+                MyAlertDialogFragment frag = new MyAlertDialogFragment();
+                Bundle args = new Bundle();
+                args.putInt("id", id);
+                args.putString("settingsKey", settingsKey);
+                args.putInt("dialogTitle", dialogTitle);
+                frag.setArguments(args);
+                return frag;
         }
 
-        ButtonSettings getOwner() {
-            return (ButtonSettings) getTargetFragment();
+        HardwareKeysSettings getOwner() {
+            return (HardwareKeysSettings) getTargetFragment();
         }
 
         @Override
