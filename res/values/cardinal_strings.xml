@@ -29,4 +29,8 @@
     <!--Cardinal-AOSP Version-->
      <string name="cardinal_version">Cardinal-AOSP Version</string>
      <string name="cardinal_version_default">Unknown</string>
+
+ <!-- Cardinal OTA -->
+    <string name="slimota_title">CardinalOTA</string>
+
 </resources>

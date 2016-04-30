@@ -17,6 +17,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/about_settings">
 
+    <!-- Cardinal OTA -->
+      <PreferenceScreen
+                android:key="slimota"
+                android:title="@string/slimota_title">
+                <intent
+                        android:action="android.intent.action.MAIN"
+                        android:targetPackage="com.cardinal_ota"
+                        android:targetClass="com.cardinal_ota.MainActivity" />
+         </PreferenceScreen>
+
         <!-- Changelog -->
         <PreferenceScreen android:key="changelog"
                 android:title="@string/changelog_cardinal_title"
