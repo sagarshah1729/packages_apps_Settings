@@ -16,6 +16,11 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/about_settings">
+    
+        <!-- Cardinal-AOSP logo -->
+        <PreferenceScreen android:key="cardinal_logo"
+                android:enabled="false"
+                android:layout="@layout/about_cardinal" />
 
     <!-- Cardinal OTA -->
       <PreferenceScreen
