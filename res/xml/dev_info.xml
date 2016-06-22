@@ -17,8 +17,12 @@ implied.
 
 <PreferenceScreen 
 xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="AOSP-RRO Developers">
+        android:title="Developers">
 
+<PreferenceCategory
+              android:key="rro_dev"
+              android:title="@string/rro_devs_header" >
+ 
  <Preference style="?android:preferenceInformationStyle"
                 android:title="@string/dev_1"
                 android:summary="@string/dev1_description"/>
@@ -26,5 +30,44 @@ xmlns:android="http://schemas.android.com/apk/res/android"
          <Preference style="?android:preferenceInformationStyle"
                 android:title="@string/dev_2"
                 android:summary="@string/dev2_description"/>
-</PreferenceScreen>
+</PreferenceCategory>
 
+<PreferenceCategory
+              android:key="cardinal_dev"
+              android:title="@string/cardinal_devs_header" >
+ 
+ <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_3"
+                android:summary="@string/dev3_description"/>
+
+         <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_4"
+                android:summary="@string/dev4_description"/>
+</PreferenceCategory>
+
+
+<PreferenceCategory
+              android:key="maintainer"
+              android:title="@string/maintainers_header" >
+
+  <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_5"
+                android:summary="@string/dev5_description"/>
+
+   <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_5"
+                android:summary="@string/dev5_description"/>
+
+
+   <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_6"
+                android:summary="@string/dev6_description"/>
+
+
+   <Preference style="?android:preferenceInformationStyle"
+                android:title="@string/dev_7"
+                android:summary="@string/dev7_description"/>
+
+</PreferenceCategory>
+
+</PreferenceScreen>
