@@ -55,14 +55,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:summary="@string/dev5_description"/>
 
    <Preference style="?android:preferenceInformationStyle"
-                android:title="@string/dev_5"
-                android:summary="@string/dev5_description"/>
-
-
-   <Preference style="?android:preferenceInformationStyle"
                 android:title="@string/dev_6"
                 android:summary="@string/dev6_description"/>
-
 
    <Preference style="?android:preferenceInformationStyle"
                 android:title="@string/dev_7"
