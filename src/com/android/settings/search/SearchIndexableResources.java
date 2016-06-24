@@ -18,6 +18,7 @@ package com.android.settings.search;
 
 import android.provider.SearchIndexableResource;
 
+import com.android.settings.cardinal.WingSettings;
 import com.android.settings.DataUsageSummary;
 import com.android.settings.DateTimeSettings;
 import com.android.settings.DevelopmentSettings;
@@ -92,6 +93,13 @@ public final class SearchIndexableResources {
                         NO_DATA_RES_ID,
                         BluetoothSettings.class.getName(),
                         R.drawable.ic_settings_bluetooth));
+
+       sResMap.put(WingSettings.class.getName(),
+               new SearchIndexableResource(
+                       Ranking.getRankForClassName(WingSettings.class.getName()),
+                       NO_DATA_RES_ID,
+                       WingSettings.class.getName(),
+                       R.drawable.ic_cardinal_wing));
 
         sResMap.put(SimSettings.class.getName(),
                 new SearchIndexableResource(

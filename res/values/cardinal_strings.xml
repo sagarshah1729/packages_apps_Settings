@@ -72,4 +72,10 @@
     <string name="display_rotation_180_title">180 degrees</string>
     <string name="display_rotation_270_title">270 degrees</string>
 
+    <!-- The Wing! -->
+    <string name="wing_status_bar">Status Bar</string>
+    <string name="cardinal_wing_title">The Wing!</string>
+    <string name="header_category_personalization">Personalization</string>
+    <!-- Candy interface -->
+
 </resources>

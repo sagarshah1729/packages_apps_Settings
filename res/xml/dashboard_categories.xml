@@ -72,6 +72,20 @@
 
     </dashboard-category>
 
+        <!-- The Wing -->
+    <dashboard-category
+            android:id="@+id/personalization"
+            android:title="@string/header_category_personalization" >
+
+        <dashboard-tile
+               android:id="@+id/the_wing"
+               android:title="@string/cardinal_wing_title"
+               android:fragment="com.android.settings.cardinal.WingSettings"
+               android:icon="@drawable/ic_cardinal_wing"
+               />
+
+    </dashboard-category>
+    
     <!-- DEVICE -->
     <dashboard-category
             android:id="@+id/device_section"

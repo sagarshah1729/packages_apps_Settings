@@ -80,6 +80,7 @@ import com.android.settings.applications.ProcessStatsUi;
 import com.android.settings.applications.UsageAccessDetails;
 import com.android.settings.applications.WriteSettingsDetails;
 import com.android.settings.bluetooth.BluetoothSettings;
+import com.android.settings.cardinal.WingSettings;
 import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardSummary;
 import com.android.settings.dashboard.DashboardTile;
@@ -280,7 +281,8 @@ public class SettingsActivity extends Activity
             R.id.print_settings,
             R.id.nfc_payment_settings,
             R.id.home_settings,
-            R.id.dashboard
+            R.id.dashboard,
+            R.id.wing_settings
     };
 
     private static final String[] ENTRY_FRAGMENTS = {
@@ -356,6 +358,7 @@ public class SettingsActivity extends Activity
             ProcessStatsSummary.class.getName(),
             DrawOverlayDetails.class.getName(),
             WriteSettingsDetails.class.getName(),
+            WingSettings.class.getName(),
     };
 
 

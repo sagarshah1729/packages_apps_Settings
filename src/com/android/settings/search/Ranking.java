@@ -16,6 +16,7 @@
 
 package com.android.settings.search;
 
+import com.android.settings.cardinal.WingSettings;
 import com.android.settings.ChooseLockGeneric;
 import com.android.settings.DataUsageSummary;
 import com.android.settings.DateTimeSettings;
@@ -82,6 +83,7 @@ public final class Ranking {
     public static final int RANK_PRINTING = 20;
     public static final int RANK_DEVELOPEMENT = 21;
     public static final int RANK_DEVICE_INFO = 22;
+    public static final int RANK_CARDINAL = 23;
 
     public static final int RANK_UNDEFINED = -1;
     public static final int RANK_OTHERS = 1024;
@@ -111,6 +113,9 @@ public final class Ranking {
         // Other wireless settinfs
         sRankMap.put(WirelessSettings.class.getName(), RANK_WIRELESS);
         sRankMap.put(WifiCallingSettings.class.getName(), RANK_WIRELESS);
+
+        // Cardinal
+        sRankMap.put(WingSettings.class.getName(), RANK_CARDINAL);
 
         // Home
         sRankMap.put(HomeSettings.class.getName(), RANK_HOME);
