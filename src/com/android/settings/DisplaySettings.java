@@ -364,6 +364,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         final int summaryResId = currentDensity == getDefaultDensity()
                 ? R.string.lcd_density_default_value_format : R.string.lcd_density_value_format;
         mLcdDensityPreference.setSummary(getString(summaryResId, currentDensity));
+    }
 
     private void updateDisplayRotationPreferenceDescription() {
         if (mDisplayRotationPreference == null) {
@@ -406,8 +407,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             summary.append(" " + getString(R.string.display_rotation_unit));
         }
         preference.setSummary(summary);
->>>>>>> fadde47... Settings: Configurable 0, 90, 180 and 270 degree rotation (2/2)
-    }
+        }
 
     private void disableUnusableTimeouts(ListPreference screenTimeoutPreference) {
         final DevicePolicyManager dpm =
