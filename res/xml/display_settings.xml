@@ -39,7 +39,7 @@
                 android:fragment="com.android.settings.slim.DisplayRotation"
                 android:title="@string/display_rotation_title" />
 
-     <com.android.settings.DropDownPreference
+     <ListPreference
         android:key="night_mode"
         android:title="@string/night_mode_title"
         android:summary="@string/night_mode_summary"
