@@ -25,11 +25,12 @@ import com.android.internal.logging.MetricsLogger;
 
 public class devs extends SettingsPreferenceFragment {
 
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+
         addPreferencesFromResource(R.xml.dev_info);
     }
-
 
     @Override
     protected int getMetricsCategory() {

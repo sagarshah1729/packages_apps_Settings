@@ -34,25 +34,24 @@
     <string name="slimota_title">CardinalOTA</string>
 
     <!-- Dev Info -->
-    <string name="dev_info">Developers</string>
+    <string name="cardinal_about_info">About Project</string> 
+    <string name="cardinal_about_info_summary">Cardinal-AOSP is a Custom ROM Initially was based on AOSPB, later we moved on and rebased it with AOSP-RRO for better AOSP experience with Full RRO Layers Support, Built with UBER toolchain to optimize battery life and with some of the most required bare minimal features/customizations, the main aim of this ROM is to deliver light speed performance, smoothness and good battery backup. We hope that you\'ll love this project, and help us in shaping it even better in the future.</string>
+    <string name="dev_info">TeamCardinal</string>
     <string name="mention">Honorable Mentions</string>
-    <string name="cardinal_devs_header">Cardinal-AOSP Developers</string>
-    <string name="dev_1">Sri Harsha &#91;srisurya95&#93;</string>
-    <string name="dev1_description">Lead AOSP-RRO developer, Themer</string>
-    <string name="dev_2">Akhil Narang &#91;akhilnarang&#93;</string>
-    <string name="dev2_description">Helper, AOSP and Layers &#60;3LOVER</string>
-    <string name="dev_info">Developers</string>
+    <string name="devs_header">Developers</string>
+    <string name="dev_1">Sri Harsha</string>
+    <string name="dev_2">Akhil Narang</string>
     <string name="dev_3">Adarsh M.R &#40;Adarsh1998&#41;</string>
-    <string name="dev3_description">Cardinal-AOSP Lead developer, Moto E, Redmi Note 3 Co-Maintainer</string>
+    <string name="dev3_description">Lead developer, Condor/Kenzo Co-Maintainer</string>
     <string name="dev_4">Rohit Poroli &#40;rohitporoli&#41;</string>
-    <string name="dev4_description">Developer, helper, OnePlus X Maintainer</string>
-    <string name="maintainers_header">Device Maintainers</string>
-    <string name="dev_5">Aashish Kumar &#40;Aashish&#41;</string>
-    <string name="dev5_description">Android One, Moto G 2014 &#40;Sprout, Titan&#41;</string>
-    <string name="dev_6">Rakesh Batra &#40;rakesh batra&#41;</string>
-    <string name="dev6_description">Yu Yureka &#40;Tomato&#41;</string>
-    <string name="dev_7">Ashish Arora &#40;Ashish0077&#41;</string>
-    <string name="dev7_description">Redmi Note 3 &#40;Kenzo&#41;</string>
+    <string name="dev4_description">Developer/helper, Onyx/Lettuce Maintainer</string>
+    <string name="maintainers_header">Maintainers</string>
+    <string name="dev_5">Aashish Kumar</string>
+    <string name="dev5_description">Sprout/Titan</string>
+    <string name="dev_6">Rakesh Batra</string>
+    <string name="dev6_description">Tomato</string>
+    <string name="dev_7">Ashish Arora</string>
+    <string name="dev7_description">Kenzo</string>
 
    <!-- Display & Lights screen, setting options for LCD density -->
     <string name="lcd_density">LCD density</string>

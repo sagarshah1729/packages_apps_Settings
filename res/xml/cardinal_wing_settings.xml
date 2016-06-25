@@ -30,6 +30,7 @@
                 android:id="@+id/status_bar"
                 android:title="@string/wing_status_bar"
                 android:fragment="com.android.settings.cardinal.StatusBarSettings"
+                android:icon="@drawable/ic_settings_statusbar"
                 />
 
         <!-- Notifications -->
