@@ -750,8 +750,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 return frag;
         }
 
-        HardwareKeysSettings getOwner() {
-            return (HardwareKeysSettings) getTargetFragment();
+        ButtonSettings getOwner() {
+            return (ButtonSettings) getTargetFragment();
         }
 
         @Override

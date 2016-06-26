@@ -74,6 +74,7 @@
     <!-- The Wing! -->
     <string name="wing_status_bar">Status Bar</string>
     <string name="cardinal_wing_title">The Wings!</string>
+    <string name="button_pref_title">Buttons</string>
     <string name="header_category_personalization">Personalization</string>
     <!-- The Wing  -->
 
@@ -127,6 +128,7 @@
     <string name="clock_date_format_custom">Custom java format</string>
 
     <!-- SystemUI Tuner Parts -->
+    <string name="statusbar_section_header">Status Bar</string>
     <string name="systemui_tuner_statusbar_title">Items</string>
     <string name="systemui_tuner_statusbar_summary">Show/hide statusbar items</string>
     <string name="systemui_tuner_qs_title">Quick settings</string>
@@ -430,5 +432,8 @@
     <!-- tap-to-sleep -->
     <string name="double_tap_to_sleep_title">Double-tap to sleep</string>
     <string name="double_tap_to_sleep_summary">Double-tap on the status bar to turn off the display</string>
+   
+    <!-- Device specific settings -->
+    <string name="screen_off_gesture_settings_title">Screen off gestures</string>
 
 </resources>

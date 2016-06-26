@@ -25,7 +25,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
-import com.android.settings.slim.HardwareKeysSettings;
+import com.android.settings.cardinal.ButtonSettings;
 import android.widget.Toast;
 
 import com.android.internal.util.slim.DeviceUtils;
