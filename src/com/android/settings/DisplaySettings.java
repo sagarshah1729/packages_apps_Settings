@@ -264,6 +264,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mNightModePreference.setValue(String.valueOf(currentNightMode));
             mNightModePreference.setOnPreferenceChangeListener(this);
         }
+
+         mVolumeRockerWake = (SwitchPreference) findPreference(VOLUME_ROCKER_WAKE);
+        mVolumeRockerWake.setOnPreferenceChangeListener(this);
+        int volumeRockerWake = Settings.System.getInt(getContentResolver(),
+                VOLUME_ROCKER_WAKE, 0);
+        mVolumeRockerWake.setChecked(volumeRockerWake != 0);
     }
 
     private int getDefaultDensity() {
@@ -286,13 +292,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             e.printStackTrace();
         }
         return DisplayMetrics.DENSITY_DEVICE;
-    }
-
-        mVolumeRockerWake = (SwitchPreference) findPreference(VOLUME_ROCKER_WAKE);
-        mVolumeRockerWake.setOnPreferenceChangeListener(this);
-        int volumeRockerWake = Settings.System.getInt(getContentResolver(),
-                VOLUME_ROCKER_WAKE, 0);
-        mVolumeRockerWake.setChecked(volumeRockerWake != 0);
     }
 
     private static boolean allowAllRotations(Context context) {

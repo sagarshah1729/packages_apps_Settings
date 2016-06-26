@@ -119,7 +119,7 @@
                 android:summary="@string/volume_rocker_wake_summary"
                 android:title="@string/volume_rocker_wake_title" />
                 
-        <com.android.settings.slim.SystemSettingSwitchPreference
+        <com.android.settings.cardinal.preference.SystemSettingSwitchPreference
           android:key="double_tap_sleep_gesture"
           android:title="@string/double_tap_to_sleep_title"
         android:summary="@string/double_tap_to_sleep_summary"
