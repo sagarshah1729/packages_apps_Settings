@@ -34,7 +34,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.nfc.NfcAdapter;
@@ -1275,10 +1274,6 @@ public class SettingsActivity extends Activity
                     if (!updateHomeSettingTiles(tile)) {
                         removeTile = true;
                     }
-                } else if (id == R.id.button_settings) {
-                    if (!deviceHasButtonsSettings()) {
-                        removeTile = true;
-                    }
                 } else if (id == R.id.user_settings) {
                     boolean hasMultipleUsers =
                             ((UserManager) getSystemService(Context.USER_SERVICE))
@@ -1448,22 +1443,6 @@ public class SettingsActivity extends Activity
 
         sp.edit().putBoolean(HomeSettings.HOME_PREFS_DO_SHOW, true).apply();
         return true;
-    }
-
-    private boolean deviceHasButtonsSettings() {
-        int deviceKeys = getResources().getInteger(
-                com.android.internal.R.integer.config_deviceHardwareKeys);
-
-        boolean hasHomeKey = (deviceKeys & ButtonSettings.KEY_MASK_HOME) != 0;
-        boolean hasMenuKey = (deviceKeys & ButtonSettings.KEY_MASK_MENU) != 0;
-
-        Resources res = getApplicationContext().getResources();
-        boolean hasAnyKey = res.getInteger(
-                com.android.internal.R.integer.config_deviceHardwareKeys) != 0;
-        boolean hasBacklight = res.getInteger(
-                com.android.internal.R.integer.config_buttonBrightnessSettingDefault) > 0;
-
-        return hasHomeKey || hasMenuKey || (hasAnyKey && hasBacklight);
     }
 
     private void getMetaData() {
