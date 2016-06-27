@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.krexus.preference;
+package com.android.settings.cardinal.preference;
 
 import android.content.Context;
 import android.preference.SwitchPreference;
