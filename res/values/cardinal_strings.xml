@@ -52,6 +52,8 @@
     <string name="dev6_description">Tomato</string>
     <string name="dev_7">Ashish Arora</string>
     <string name="dev7_description">Kenzo</string>
+    <string name="dev_8">Mehmet Aslan</string>
+    <string name="dev8_description">Bacon</string>
 
    <!-- Display & Lights screen, setting options for LCD density -->
     <string name="lcd_density">LCD density</string>

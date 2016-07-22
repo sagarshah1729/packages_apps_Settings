@@ -89,6 +89,15 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                android:data="http://forum.xda-developers.com/member.php?u=6505498" />
       </PreferenceScreen>
 
+       <PreferenceScreen
+            android:title="@string/dev_8"
+    android:summary="@string/dev8_description" 
+    android:icon="@drawable/ic_devs_phone">
+    <intent
+               android:action="android.intent.action.VIEW"
+               android:data="http://forum.xda-developers.com/member.php?u=7031867" />
+      </PreferenceScreen>
+	  
 </PreferenceCategory>
 
 <PreferenceCategory
