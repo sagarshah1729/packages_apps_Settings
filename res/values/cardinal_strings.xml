@@ -436,10 +436,6 @@
     <string name="backlight_summary_disabled">Disabled</string>
     <string name="backlight_summary_enabled_with_timeout">Enabled for <xliff:g id="timeout">%s</xliff:g></string>
     <string name="backlight_summary_enabled">Enabled</string>
-	
-    <!-- Screenshot sound -->
-    <string name="screenshot_sound_title">Screenshot sound</string>
-    <string name="screenshot_sound_summary">Plays sound effect when screenshot is taken</string>
 
     <!-- Volume rocker wake -->
     <string name="volume_rocker_wake_title">Volume rocker wake</string>
