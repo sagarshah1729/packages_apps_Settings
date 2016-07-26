@@ -54,6 +54,8 @@
     <string name="dev7_description">Kenzo</string>
     <string name="dev_8">Mehmet Aslan</string>
     <string name="dev8_description">Bacon</string>
+    <string name="dev_9">Romil Parhwal</string>
+    <string name="dev9_description">Oneplus2</string>
 
    <!-- Display & Lights screen, setting options for LCD density -->
     <string name="lcd_density">LCD density</string>
