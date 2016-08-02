@@ -48,6 +48,13 @@
             android:fragment="com.android.settings.cardinal.fragments.CarrierLabel"
             android:title="@string/carrier_options" />
  
+        <com.android.settings.cardinal.preference.SystemSettingSwitchPreference
+            android:key="sysui_qs_main_tiles"
+            android:title="@string/qs_main_tiles_title"
+            android:summaryOn="@string/qs_main_tiles_summary_on"
+            android:summaryOff="@string/qs_main_tiles_summary_off"
+            android:defaultValue="true" />
+
     <ListPreference
             android:key="sysui_qs_num_columns"
             android:title="@string/qs_num_columns_title"
