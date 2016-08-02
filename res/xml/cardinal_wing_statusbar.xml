@@ -47,6 +47,13 @@
             android:key="carrierlabel"
             android:fragment="com.android.settings.cardinal.fragments.CarrierLabel"
             android:title="@string/carrier_options" />
+ 
+    <ListPreference
+            android:key="sysui_qs_num_columns"
+            android:title="@string/qs_num_columns_title"
+            android:entries="@array/qs_num_columns_entries"
+            android:entryValues="@array/qs_num_columns_values"
+            android:persistent="false" />
 
     <PreferenceCategory
         android:key="clockdate"
