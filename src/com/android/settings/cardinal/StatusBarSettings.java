@@ -2,9 +2,12 @@ package com.android.settings.cardinal;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -265,7 +268,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             }
             return true;
             } else if (preference == mNumColumns) {
-            int numColumns = Integer.valueOf((String) objValue);
+            int numColumns = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getContentResolver(), Settings.System.QS_NUM_TILE_COLUMNS,
                     numColumns, UserHandle.USER_CURRENT);
             updateNumColumnsSummary(numColumns);
